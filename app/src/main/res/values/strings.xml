@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Ernest_app</string>
+    <string name="welcome_message">Ласкаво просимо,\n%s!</string>
+    <string name="login_counter">Залишено автоматичних входів: %d</string>
+    <string name="logout_button">Вийти з акаунту</string>
+    <string name="close_app_button">Закрити додаток</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Пароль</string>
+    <string name="password_show">Показати Пароль</string>
+    <string name="login_button">Увійти</string>
+    <string name="register_button">Реєстрація</string>
+    <string name="registered_users">Зареєстровані користувачі: %s</string>
+    <string name="auto_login_checkbox">Автоматичний вхід</string>
+</resources>

@@ -1,0 +1,33 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Ernest_App"
+        android:theme="@style/Theme.MyApplication">
+
+        <!-- MainActivity -->
+        <activity
+            android:name=".MainActivity"
+            android:label="Головний екран"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- AuthenticationActivity -->
+        <activity
+            android:name=".AuthenticationActivity"
+            android:label="Аутентифікація"
+            android:exported="false" />
+
+        <!-- RegistrationActivity -->
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="Реєстрація"
+            android:exported="false" />
+    </application>
+</manifest>

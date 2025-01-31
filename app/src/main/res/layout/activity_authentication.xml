@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Поле для введення email -->
+    <EditText
+        android:id="@+id/etLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Поле для введення паролю -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Кнопка входу -->
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Кнопка реєстрації -->
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_button"
+        android:backgroundTint="@color/teal_700"
+        android:textColor="@android:color/white"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/tvRegisteredUsers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registered_users"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

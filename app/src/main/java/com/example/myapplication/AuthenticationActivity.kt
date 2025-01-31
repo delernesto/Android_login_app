@@ -1,14 +1,23 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Intent
 import com.example.myapplication.databinding.ActivityAuthenticationBinding
 
 class AuthenticationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAuthenticationBinding
     private lateinit var prefs: PrefsHelper
+
+    // Оголосити ActivityResultLauncher для реєстрації
+    private val registrationLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            // Оновлюємо список зареєстрованих користувачів після успішної реєстрації
+            updateRegisteredUsersList()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +32,9 @@ class AuthenticationActivity : AppCompatActivity() {
     private fun setupUI() {
         binding.btnLogin.setOnClickListener { login() }
         binding.btnRegister.setOnClickListener {
-            startActivityForResult(
-                Intent(this, RegistrationActivity::class.java),
-                REGISTRATION_REQUEST_CODE
-            )
+            // Запуск RegistrationActivity через ActivityResultLauncher
+            val intent = Intent(this, RegistrationActivity::class.java)
+            registrationLauncher.launch(intent)
         }
     }
 
@@ -55,14 +63,4 @@ class AuthenticationActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REGISTRATION_REQUEST_CODE && resultCode == RESULT_OK) {
-            updateRegisteredUsersList() // Оновлюємо список після успішної реєстрації
-        }
-    }
-
-    companion object {
-        private const val REGISTRATION_REQUEST_CODE = 1001
-    }
 }

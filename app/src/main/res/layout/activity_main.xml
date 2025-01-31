@@ -46,4 +46,14 @@
         android:textColor="@android:color/white"
         android:padding="16dp"
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_account"
+        android:backgroundTint="@color/soft_red"
+        android:textColor="@android:color/white"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>

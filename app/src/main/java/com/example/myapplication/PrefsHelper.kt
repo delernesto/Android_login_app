@@ -84,4 +84,12 @@ class PrefsHelper(context: Context) {
     // Отримання поточного користувача
     fun getCurrentUser(): String? =
         sharedPref.getString("current_user", null)
+
+    fun deleteCurrentUser(email: String) {
+        val users = getUsers().toMutableList()
+        users.removeIf { it.email == email }
+        saveUsers(users)
+        resetAutoLogin(email)
+        clearCurrentUser()
+    }
 }

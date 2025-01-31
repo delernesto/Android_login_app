@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import com.example.myapplication.databinding.ActivityMainBinding
+import android.widget.Toast
+
 
 class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -51,7 +53,18 @@ class MainActivity : ComponentActivity() {
 
     private fun setupUI() {
         binding.btnLogout.setOnClickListener { handleLogout() }
-        binding.btnCloseApp.setOnClickListener { finish() } // Просто закриваємо додаток
+        binding.btnCloseApp.setOnClickListener { finish() }
+        binding.btnDeleteAccount.setOnClickListener { handleDeleteAccount() }
+    }
+
+    private fun handleDeleteAccount() {
+        currentUserEmail?.let { email ->
+            prefs.deleteCurrentUser(email)
+            Toast.makeText(this, "Акаунт видалено", Toast.LENGTH_SHORT).show()
+            navigateToAuth()
+        } ?: run {
+            Toast.makeText(this, "Помилка: користувача не знайдено", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun handleLogout() {

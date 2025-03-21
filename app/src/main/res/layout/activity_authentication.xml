@@ -55,4 +55,57 @@
         android:text="@string/registered_users"
         android:textSize="18sp"
         android:layout_marginTop="16dp"/>
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/sign_with_label"
+        android:textSize="18sp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <ImageButton
+            android:id="@+id/googleButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Login with Google"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/google" />
+
+        <ImageButton
+        android:orientation="horizontal"
+        android:id="@+id/facebookButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Login with Facebook"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/facebook" />
+
+    <ImageButton
+        android:orientation="horizontal"
+        android:id="@+id/TwitterButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Login with Twitter"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/twitter" />
+    </LinearLayout>
+
+
+
 </LinearLayout>

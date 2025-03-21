@@ -65,5 +65,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("com.facebook.android:facebook-android-sdk:16.0.0")
+    implementation ("com.squareup.picasso:picasso:2.8")
 
 }

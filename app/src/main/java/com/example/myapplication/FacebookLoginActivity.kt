@@ -22,63 +22,74 @@ class FacebookLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_facebook_login)
 
-        // Initialize UI elements
+        // Ініціалізація UI елементів
         nameTextView = findViewById(R.id.name)
         profileImageView = findViewById(R.id.imageView)
         logOutButton = findViewById(R.id.logOutbtn)
 
-        // Get current user's AccessToken
-        val accessToken = AccessToken.getCurrentAccessToken()
+        // Перевірка токена
+        checkFacebookToken()
 
-        if (accessToken != null && !accessToken.isExpired) {
-            getUserProfile(accessToken)
-        } else {
-            // If token is missing or expired, go to the authentication screen
-            startActivity(Intent(this, AuthenticationActivity::class.java))
-            finish()
-        }
-
-        // Logout button handler
+        // Обробник кнопки виходу
         logOutButton.setOnClickListener {
-            LoginManager.getInstance().logOut()
-            startActivity(Intent(this, AuthenticationActivity::class.java))
-            finish()
+            logout()
+        }
+    }
+
+    private fun checkFacebookToken() {
+        val accessToken = AccessToken.getCurrentAccessToken()
+        if (accessToken == null || accessToken.isExpired) {
+            redirectToAuth()
+        } else {
+            getUserProfile(accessToken)
         }
     }
 
     private fun getUserProfile(accessToken: AccessToken) {
-        val request = GraphRequest.newMeRequest(accessToken) { `object`, _ ->
+        val request = GraphRequest.newMeRequest(accessToken) { jsonObject, _ ->
             try {
-                // Check if the object is not null
-                if (`object` != null) {
-                    val fullName = `object`.getString("name")
-                    val url = `object`.getJSONObject("picture")
+                jsonObject?.let {
+                    val fullName = it.getString("name")
+                    val url = it.getJSONObject("picture")
                         .getJSONObject("data")
                         .getString("url")
 
-                    // Set the name in TextView
                     nameTextView.text = fullName
-
-                    // Load the image using Picasso
-                    if (url != null) {
-                        Picasso.get().load(url).into(profileImageView)
-                    } else {
-                        Toast.makeText(this, "Failed to get image URL", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    Toast.makeText(this, "Failed to get profile data", Toast.LENGTH_SHORT).show()
+                    Picasso.get()
+                        .load(url)
+                        .placeholder(R.drawable.ic_profile_placeholder) // Плейсхолдер
+                        .error(R.drawable.ic_profile_placeholder)       // Показувати при помилці
+                        .into(profileImageView)
+                } ?: run {
+                    showError("Failed to get profile data")
                 }
             } catch (e: JSONException) {
-                // Handle JSON parsing errors
-                Toast.makeText(this, "Error fetching profile data", Toast.LENGTH_SHORT).show()
+                showError("Error parsing profile data")
                 e.printStackTrace()
             }
         }
 
-        // Set request parameters
-        val parameters = Bundle()
-        parameters.putString("fields", "id,name,link,picture.type(large)")
+        val parameters = Bundle().apply {
+            putString("fields", "id,name,link,picture.type(large)")
+        }
         request.parameters = parameters
         request.executeAsync()
+    }
+
+    private fun logout() {
+        LoginManager.getInstance().logOut()
+        redirectToAuth()
+    }
+
+    private fun redirectToAuth() {
+        val intent = Intent(this, AuthenticationActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(intent)
+        finish() // Тепер finish() має працювати коректно
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
